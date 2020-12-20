@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchBar from "./SearchBar";
+import youtube from "../apis/youtube";
 
 const App = () => {
     
-    const onTermSubmit = ( term ) => {
-        console.log(term);
+    const [videos, setVideos ] = useState([]);
+
+    const onTermSubmit = async ( term ) => {
+       const response = await youtube.get("./search", {
+           params: {
+               q: term
+           }
+       });
+
+       setVideos(response.data.items);
     };
 
     return(
@@ -12,6 +21,7 @@ const App = () => {
             <SearchBar
                 onTermSubmit = { onTermSubmit }
             />
+            We got { videos.length } videos
         </div>
     );
 };

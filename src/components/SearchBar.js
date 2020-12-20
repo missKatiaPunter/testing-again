@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-const SearchBar = () => {
+const propTypes = {
+    onTermSubmit: PropTypes.func.isRequired,
+};
+
+const SearchBar = (props) => {
+
+    const { onTermSubmit } = props;
 
     const [ inputBoxValue, setInputBoxValue ] = useState("");
 
@@ -8,9 +15,17 @@ const SearchBar = () => {
         setInputBoxValue(value);
     };
 
+    const onFormSubmit = (e) => {
+        e.preventDefault();
+        onTermSubmit(inputBoxValue);
+    };
+
     return(
         <div className="search-bar ui segment">
-            <form className="ui form">
+            <form
+                onSubmit={ onFormSubmit }
+                className="ui form"
+            >
                 <div className="field">
                     <label>Video Search</label>
                     <input
@@ -23,5 +38,7 @@ const SearchBar = () => {
         </div>
     );
 };
+
+SearchBar.propTypes = propTypes;
 
 export default SearchBar;

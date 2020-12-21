@@ -9,11 +9,15 @@ const propTypes = {
 const VideoList = ({ videos }) => {
 
     const renderedList = videos.map(video => {
-        return <VideoItem video={ video } />;
+        return <VideoItem video={ video } key={video.snippet.title}/>;
     });
 
     return (
-        <div>{ renderedList }</div>
+        <div
+            className="ui relaxed divided list"
+        >
+            { renderedList }
+        </div>
     );
 };
 
